@@ -16,20 +16,13 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  socket.emit('newEmail', {
-    from: 'abc@yahoo.com',
-    text: 'hello world!',
-    timeStamp: new Date()
-  });
-
-  socket.emit('newMessage', {
-    from: 'Sam Gao',
-    text: 'hello world!',
-    createAt: new Date()
-  });
-
   socket.on('createMessage', (message) => {
     console.log('New Message created ', message);
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 
   socket.on('disconnect', () => {
