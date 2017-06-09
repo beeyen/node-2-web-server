@@ -17,15 +17,13 @@ var client = 0;
 io.on('connection', (socket) => {
   client++;
   socket.emit('newMessage', generateMessage('Admin', 'Welcome'));
-  socket.broadcast.emit('newMessage', generateMessage('Admin', client + ' User(s) Joined!'));
-  socket.on('createMessage', (message) => {
+  //socket.broadcast.emit('newMessage', generateMessage('Admin', client + ' User(s) Joined!'));
+  socket.on('createMessage', (message, callback) => {
     console.log('New Message created ', message);
     io.emit('newMessage', generateMessage(message.from, message.text));
-    // socket.broadcast.emit('newMessage', {
-    //   from: message.from,
-    //   text: message.text,
-    //   createdAt: new Date().getTime()
-    // });
+    if (callback) {
+      callback('This is from the server!');
+    }
   });
 
 
@@ -33,9 +31,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     client--;
     console.log('User was disconnected');
-    socket.broadcast.emit('newMessage', {
-      description: client + ' clients connected.'
-    })
   });
 });
 
