@@ -55,7 +55,6 @@ jQuery('#message-form').on('submit', function(e) {
     from: 'user',
     text: inputEl.val()
   }, function(data) {
-    console.log('GOT IT FROM FORM!' + data);
     inputEl.val('');
   });
 })
