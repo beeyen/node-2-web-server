@@ -68,7 +68,6 @@ locationButton.on('click', function() {
     locationMap.append(locationText);
     navigator.geolocation.getCurrentPosition(function(position) {
         locationButton.removeAttr('disabled').text('Send location');
-        console.log(position);
         var latitude  = position.coords.latitude;
         var longitude = position.coords.longitude;
         locationText.text(`Latitude: ${latitude} | Longtitue: ${longitude}`);
