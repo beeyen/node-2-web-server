@@ -1,3 +1,4 @@
+const cool = require('cool-ascii-faces');
 const path = require('path');
 const http = require('http');
 const express = require('express');
@@ -16,6 +17,7 @@ var client = 0;
 
 io.on('connection', (socket) => {
   client++;
+  console.log(cool());
   socket.emit('newMessage', generateMessage('Admin', 'Welcome'));
   //socket.broadcast.emit('newMessage', generateMessage('Admin', client + ' User(s) Joined!'));
   socket.on('createMessage', (message, callback) => {
