@@ -1,12 +1,3 @@
-const _ = require('lodash');
-[
-  {
-    id: '#12345',
-    name: 'Andrew',
-    room: 'Blue Hydrangea'
-  }
-]
-
 class Users {
   constructor() {
     this.users = [];
