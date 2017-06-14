@@ -8,10 +8,29 @@ var locationMap = jQuery('#output');
 
 socket.on('connect', function(){
   console.log('Connect to server');
+  var params = jQuery.deparam(window.location.search);
+  socket.emit('join', params, function(err) {
+    if (err) {
+      console.log('err');
+      window.location.href = '/';
+    } else {
+      console.log('no error')
+    }
+   });
 });
+
 socket.on('disconnect', function() {
   console.log('Disconnected to server');
 });
+
+socket.on('updateUsers', function(users) {
+  console.log('update users list');
+  var ol = jQuery('<ol></ol>');
+  users.forEach(function(user) {
+    ol.append(jQuery('<li></li>').text(user));
+  });
+  jQuery('#users').html(ol);
+})
 
 socket.on('newMessage', function(message) {
   var formattedTime = moment(message.createdAt).format('hh:mm a');
